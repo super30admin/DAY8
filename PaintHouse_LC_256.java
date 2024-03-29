@@ -1,5 +1,8 @@
 // Did this code successfully run on Leetcode : Yes
 // Any problem you faced while coding this : NO
+// (https://leetcode.com/problems/paint-house/)
+
+import java.util.Arrays;
 
 /**
  * Find the min. cost => think greedily i.e. paint the house with a color
@@ -76,7 +79,7 @@
  * TC: O(n * 4)
  * SC: O(1)
  */
-public class PaintHouse {
+public class PaintHouse_LC_256 {
 
     /**
      * Recursion
