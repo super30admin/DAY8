@@ -249,12 +249,16 @@ public class PaintHouse_LC_256 {
         int minCost, minColor;
         for (int prevColor = 0; prevColor < 4; prevColor++) {
             minCost = Integer.MAX_VALUE;
+            minColor = 3;
             for (int color = 0; color < 3; color++) {
                 if (color != prevColor) {
-                    minCost = Math.min(minCost, costs[0][color]);
+                    if (minCost > costs[0][color]) {
+                        minCost = costs[0][color];
+                        minColor = color;
+                    }
                 }
             }
-            dp[0][prevColor] = new Pair(minCost, -1);
+            dp[0][prevColor] = new Pair(minCost, minColor);
         }
 
         for (int house = 1; house < n; house++) {
@@ -287,7 +291,7 @@ public class PaintHouse_LC_256 {
                     break;
                 }
             }
-            minCost -= costs[house][color];
+            minCost -= costs[house][coloredHouses[house]];
         }
         return coloredHouses;
     }
@@ -354,7 +358,6 @@ public class PaintHouse_LC_256 {
                 for (prevColor = 0; prevColor < 3; prevColor++) {
                     if (color != prevColor) {
                         int cost = dp[house - 1][prevColor].cost;
-                        minCost = Math.min(minCost, cost);
                         if (minCost > cost) {
                             minColor = prevColor;
                             minCost = cost;
