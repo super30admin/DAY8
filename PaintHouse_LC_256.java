@@ -3,6 +3,7 @@
 // (https://leetcode.com/problems/paint-house/)
 
 import java.util.Arrays;
+// import javafx.util.Pair;
 
 /**
  * Find the min. cost => think greedily i.e. paint the house with a color
@@ -227,6 +228,160 @@ public class PaintHouse_LC_256 {
             prev = curr;
         }
         return prev[3];
+    }
+
+    class Pair {
+        int cost;
+        int color;
+
+        Pair(int cost, int color) {
+            this.cost = cost;
+            this.color = color;
+        }
+    }
+
+    public int[] minCost_tabulation_path(int[][] costs) {
+        int n = costs.length;
+        Pair[][] dp = new Pair[n][4];
+        int[] coloredHouses = new int[n];
+
+        // base case == house 0
+        int minCost, minColor;
+        for (int prevColor = 0; prevColor < 4; prevColor++) {
+            minCost = Integer.MAX_VALUE;
+            for (int color = 0; color < 3; color++) {
+                if (color != prevColor) {
+                    minCost = Math.min(minCost, costs[0][color]);
+                }
+            }
+            dp[0][prevColor] = new Pair(minCost, -1);
+        }
+
+        for (int house = 1; house < n; house++) {
+            for (int prevColor = 0; prevColor < 4; prevColor++) {
+                minCost = Integer.MAX_VALUE;
+
+                minColor = 3;
+                for (int color = 0; color < 3; color++) {
+                    if (color != prevColor) {
+                        int cost = dp[house - 1][color].cost + costs[house][color];
+                        if (minCost > cost) {
+                            minColor = color;
+                            minCost = cost;
+                        }
+                    }
+                }
+
+                dp[house][prevColor] = new Pair(minCost, minColor);
+            }
+        }
+
+        minCost = dp[n - 1][3].cost;
+        coloredHouses[n - 1] = dp[n - 1][3].color;
+        minCost -= costs[n - 1][coloredHouses[n - 1]];
+        // find path
+        for (int house = n - 2, color = 0; house >= 0; house--) {
+            for (color = 0; color < 3; color++) {
+                if (dp[house][color].cost == minCost) {
+                    coloredHouses[house] = dp[house][color].color;
+                    break;
+                }
+            }
+            minCost -= costs[house][color];
+        }
+        return coloredHouses;
+    }
+
+    /**
+     * Tabulation
+     * TC: O(n * 4)
+     * SC: O(4 * n)
+     */
+    public int minCost_tabulation_2(int[][] costs) {
+        int n = costs.length;
+        int[][] dp = new int[n][3];
+
+        // base case == house 0
+        int minCost;
+        for (int color = 0; color < 3; color++) {
+            dp[0][color] = costs[0][color];
+        }
+
+        for (int house = 1; house < n; house++) {
+            for (int color = 0, prevColor = 0; color < 3; color++) {
+                minCost = Integer.MAX_VALUE;
+
+                for (prevColor = 0; prevColor < 3; prevColor++) {
+                    if (color != prevColor) {
+                        int cost = dp[house - 1][prevColor];
+                        minCost = Math.min(minCost, cost);
+                    }
+                }
+
+                dp[house][color] = minCost + costs[house][color];
+            }
+        }
+
+        minCost = Integer.MAX_VALUE;
+        for (int color = 0; color < 3; color++) {
+            minCost = Math.min(minCost, dp[n - 1][color]);
+        }
+        return minCost;
+    }
+
+    /**
+     * Store the previous color at each step and backtrack.
+     * 
+     * @param costs
+     * @return
+     */
+    public int[] minCost_tabulation_2_path(int[][] costs) {
+        int n = costs.length;
+        Pair[][] dp = new Pair[n][3];
+        int[] coloredHouses = new int[n];
+
+        // base case == house 0
+        int minCost, minColor;
+        for (int color = 0; color < 3; color++) {
+            dp[0][color] = new Pair(costs[0][color], -1);
+        }
+
+        for (int house = 1; house < n; house++) {
+            for (int color = 0, prevColor = 0; color < 3; color++) {
+                minCost = Integer.MAX_VALUE;
+                minColor = 3;
+
+                for (prevColor = 0; prevColor < 3; prevColor++) {
+                    if (color != prevColor) {
+                        int cost = dp[house - 1][prevColor].cost;
+                        minCost = Math.min(minCost, cost);
+                        if (minCost > cost) {
+                            minColor = prevColor;
+                            minCost = cost;
+                        }
+                    }
+                }
+
+                dp[house][color] = new Pair(minCost + costs[house][color], minColor);
+            }
+        }
+
+        minCost = Integer.MAX_VALUE;
+        minColor = 3;
+        for (int color = 0; color < 3; color++) {
+            if (minCost > dp[n - 1][color].cost) {
+                minCost = dp[n - 1][color].cost;
+                minColor = color;
+            }
+        }
+        coloredHouses[n - 1] = minColor;
+
+        // find path
+        for (int house = n - 2; house >= 0; house--) {
+            coloredHouses[house] = dp[house + 1][minColor].color;
+            minColor = dp[house][coloredHouses[house]].color;
+        }
+        return coloredHouses;
     }
 
 }
