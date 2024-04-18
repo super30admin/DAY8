@@ -1,0 +1,19 @@
+//SC O1 TC Om*n
+class Solution {
+    public int minCost(int[][] costs) {
+        int m = costs.length;
+        int costR = costs[m - 1][0];
+        int costB = costs[m - 1][1];
+        int costG = costs[m - 1][2];
+
+        for (int i = m - 2; i >= 0; i--) {
+            int tempRed = costR;
+            costR = costs[i][0] + Math.min(costB, costG);
+            int tempB = costB;
+            costB = costs[i][1] + Math.min(tempRed, costG);
+            costG = costs[i][2] + Math.min(tempB, tempRed);
+
+        }
+        return Math.min(costR, Math.min(costB, costG));
+    }
+}
