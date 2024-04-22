@@ -1,0 +1,49 @@
+Time complexity: O(m*n)--> with n value being 3(Red, Blue,Green) , over all time complexity is O(3m)~O(m)
+Space complexity: O(m)
+Approach: 
+Initialize dp array with all last row values. For Color zero(red) get the minimum from 1 & 2 and sum it with current value.
+For Color 1(blue) get the minimum from  0 and 2 and sum it with current value.
+For Color 2(green) get the minimum from  0 and 1 and sum it with current value.
+
+Final result will be minum of (dp[0], dp[1], dp[2])
+
+package interview2;
+
+public class PaintHouse {
+	
+	public static void main(String[] args) {
+		int[][] matrix = new int[3][3];
+		
+		// Initialize the matrix with values
+		matrix[0][0] = 1;
+		matrix[0][1] = 2;
+		matrix[0][2] = 3;
+		matrix[1][0] = 4;
+		matrix[1][1] = 5;
+		matrix[1][2] = 6;
+		matrix[2][0] = 7;
+		matrix[2][1] = 8;
+		matrix[2][2] = 9;	
+		
+		int[] dp=new int[3];
+		
+		//length of the input string.
+		int n=3;
+		for(int j=0;j<3;j++) {
+			dp[j]=matrix[n-1][j];
+		}
+		
+		System.out.println(dp[0]+ " "+ dp[1]+ " "+dp[2]);
+		
+		for(int i=n-2;i>=0;i--) {
+				int temp=dp[0];
+				dp[0]=matrix[i][0]+Math.min(dp[1], dp[2]);	
+				int temp2=dp[1];
+				dp[1]=matrix[i][1]+Math.min(temp, dp[2]);				
+				dp[2]=matrix[i][2]+Math.min(temp, temp2);
+				System.out.println(dp[0]+" "+dp[1]+" "+dp[2]);
+		}
+		
+		System.out.println(Math.min(dp[0], Math.min(dp[1], dp[2])));
+	}
+}
