@@ -3,10 +3,13 @@
 
 # Approach :
 
-# in this we add up the previous denominations value with the current denomination
-# i is for traversing the rows (0 to len(coins)) and j ( 0 to amount) for the coulmns
-# if coins[i] is greater than j we can add the value given by arr[i-1][j]
-# else add the amount given by arr[i-1][j] and arr[i][j-coins[i]]
+# start with the n-2 th row, so that we can compare the last row and update the n-2th elements
+# store the last row elements in variables
+# start traversing from the second last row elements
+# store the last row elements in a temp variable
+# calculate the cost at each index by summing the current index cost and the minimum cost of the other colors.
+# update the variables with the new cost and repeat the process till the first row is also complete
+# finally return the min between the three colors .
 
 class Solution:
     def minCost(self, arr: List[List[int]]) -> int:
