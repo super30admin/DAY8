@@ -1,5 +1,8 @@
 //Time Complexity - O(m * n)
 //Space Complexity - O(m * n)
+//Here we fill the j  == 0 column completely with 1. There is always 1 way to have a coin of some value to make the amount 0. ( we simply do not include that coin). 
+// for coin of value 0, to make any sum using it , 0 ways are to do it. 
+// Find Case0 and case1. Add them up. if amount < coins[i-1] , return case0 only. 
 class Solution {
     public int change(int amount, int[] coins) {
         if(coins == null || coins.length == 0){
