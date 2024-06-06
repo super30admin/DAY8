@@ -1,0 +1,25 @@
+/ Time Complexity : worst case is O(n^2)
+// Space Complexity : O(n^2)
+
+// start from the last row of the array. take the min of 2 values and add it to the non adjacent value. minimum on the first row is the answer
+
+class Solution {
+    public int minCost(int[][] costs) {
+        if (costs == null || costs.length == 0) {
+            return 0;
+        }
+        int n = costs.length;
+        int red = costs[n - 1][0];
+        int blue = costs[n - 1][1];
+        int green = costs[n - 1][2]; 
+        for (int i = n - 2; i >= 0; i--) {
+            int tempRed = red;
+            int tempBlue = blue;
+            red = red + Math.min(tempBlue, green);
+            blue = blue + Math.min(tempRed, green);
+            green = green + Math.min(tempRed, tempBlue);
+        }
+
+        return Math.min(red, Math.min(blue, green));
+    }
+}
