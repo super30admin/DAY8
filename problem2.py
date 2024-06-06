@@ -60,10 +60,10 @@ class Solution2:
     return matrix[len(coins)][amount]
 
 coins1 = [1, 2, 5]
-amount1 = 15
+amount1 = 5
 
 coins2 = [1, 2, 3]
-amount2 = 20
+amount2 = 10
 
 coins3 = [5, 10]
 amount3 = 53
@@ -72,7 +72,7 @@ coins4 = [1, 2, 3, 5]
 amount4 = 534
 
 coins5 = [1, 2, 3, 5, 50, 100]
-amount5 = 53442
+amount5 = 5344
 
 coins6 = [5, 10]
 amount6 = 53447
@@ -82,13 +82,13 @@ s1 = Solution1()
 s2 = Solution2()
 print('Using Exhaustive recursion:')
 print()
-print('Number of ways in which the amount {} can be formed using values {} is {}.'.format(amount1, coins1, s1.change(amount1, coins1)))
-print('Number of ways in which the amount {} can be formed using values {} is {}.'.format(amount2, coins2, s1.change(amount2, coins2)))
-print('Number of ways in which the amount {} can be formed using values {} is {}.'.format(amount3, coins3, s1.change(amount3, coins3)))
+print('Number of ways in which {} can be formed using coin values {} is {}.'.format(amount1, coins1, s1.change(amount1, coins1)))
+print('Number of ways in which {} can be formed using coin values {} is {}.'.format(amount2, coins2, s1.change(amount2, coins2)))
+print('Number of ways in which {} can be formed using coin values {} is {}.'.format(amount3, coins3, s1.change(amount3, coins3)))
 print()
 
 print('Using Dynamic programming:')
 print()
-print('Number of ways in which the amount {} can be formed using values {} is {}.'.format(amount4, coins4, s2.change(amount4, coins4)))
-print('Number of ways in which the amount {} can be formed using values {} is {}.'.format(amount5, coins5, s2.change(amount5, coins5)))
-print('Number of ways in which the amount {} can be formed using values {} is {}.'.format(amount6, coins6, s2.change(amount6, coins6)))
+print('Number of ways in which {} can be formed using coin values {} is {}.'.format(amount4, coins4, s2.change(amount4, coins4)))
+print('Number of ways in which {} can be formed using coin values {} is {}.'.format(amount5, coins5, s2.change(amount5, coins5)))
+print('Number of ways in which {} can be formed using coin values {} is {}.'.format(amount6, coins6, s2.change(amount6, coins6)))
