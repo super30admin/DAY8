@@ -24,6 +24,8 @@ Did this code successfully run on Leetcode : don't have a leetcode premium accou
 Any problem you faced while coding this : no
 '''
 
+#-----------------------Exhaustive Recursion-----------------------
+
 class Solution1:
   def minCost(self, costs):
     if not costs or len(costs) == 0:
@@ -46,6 +48,8 @@ class Solution1:
     else:
       return costs[houseIdx][colorIdx] + min(self.minCostRecursive(costs, houseIdx + 1, 0), self.minCostRecursive(costs, houseIdx + 1, 1))
 
+#-----------------------Dynamic programming using matrix-----------------------
+
 class Solution2:
   def minCost(self, costs):
     if not costs or len(costs) == 0:
@@ -65,6 +69,8 @@ class Solution2:
       matrix[houseIdx][2] = costs[houseIdx][2] + min(matrix[houseIdx - 1][0], matrix[houseIdx - 1][1])
 
     return min(matrix[n - 1])
+
+#-----------------------Dynamic programming without matrix-----------------------
 
 class Solution3:
   def minCost(self, costs):
