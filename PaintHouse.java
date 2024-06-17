@@ -1,5 +1,7 @@
 import java.util.*;
 public class PaintHouse {
+    // TC: n^2
+    // SP: O(1)
     private int[][] costs;
     private Map<String, Integer> memo;
 
