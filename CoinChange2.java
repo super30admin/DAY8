@@ -2,32 +2,34 @@ public class CoinChange2 {
     public static int change(int amount, int[] coins) {
         int m = coins.length;
         int n = amount;
-        int[][] dp = new int[m+1][n+1];
+        int[] dp = new int[n+1];
 
-        for(int j=0; j<=n; j++) {
-            dp[0][j] = 0; //dummy row insertion because at 0th denomination, there are 0 ways to make any amount.
-        }
+//        for(int j=0; j<=n; j++) {
+//            dp[0][j] = 0; //dummy row insertion because at 0th denomination, there are 0 ways to make any amount.
+//        }
+//
+//        for(int i=0; i<=m; i++) {
+//            dp[i][0] = 1; //manual insertion because at 0th column,
+//            //as anyway case1 is always the same value as above value and with 0th denomination, we can make 0 in 1 way.
+//        }
 
-        for(int i=0; i<=m; i++) {
-            dp[i][0] = 1; //manual insertion because at 0th column,
-            //as anyway case1 is always the same value as above value and with 0th denomination, we can make 0 in 1 way.
-        }
+        dp[0] = 1;
 
         for(int i=1; i<=m; i++) {
             for(int j=1; j<=n; j++) { //O(m*n) T.C
                 //case1 - if current amount is lesser than denomination, just chose value from above as 0th case
-                if(j < coins[i-1]) {
-                    dp[i][j] = dp[i-1][j];
-                }
+//                if(j < coins[i-1]) {
+//                    dp[j] = dp[j];
+//                }
 
                 //case2 - if current amount can be made with given denomination, add the value from above
                 //and the value at current denomination places before in the same row.
-                else{
-                    dp[i][j] = dp[i-1][j] + dp[i][j-coins[i-1]]; //O(m*n) S.C
+                if(j >= coins[i-1]){
+                    dp[j] = dp[j] + dp[j-coins[i-1]]; //O(n) S.C
                 }
             }
         }
-        return dp[m][n];
+        return dp[n];
     }
 
     public static void main(String[] args) {
