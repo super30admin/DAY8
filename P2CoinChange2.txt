@@ -1,0 +1,43 @@
+// Time Complexity : O(2^n)
+// Space Complexity : O(mxn)
+// Did this code successfully run on Leetcode : Yes
+// Any problem you faced while coding this :No 
+
+
+// Your code here along with comments explaining your approach
+// There are 2 cases to either take the coin or to not take the coin
+// if after recursion the amount becomes zero that means we have successfully added the coins and that is the valid path 
+// if the amount becomes negative or we have exhausted the coins then we reject that traversed path
+// finally count the path which gave us amount = 0  while traversing 
+
+class Solution {
+    private int[][] memo;
+    public int coinRec(int[] nums,int amount, int idx){
+        if(amount == 0){
+            return 1;
+        }
+        if(idx == nums.length || amount < 0) return 0;
+
+        if(memo[idx][amount] != -1) return memo[idx][amount];
+
+        int case1 = coinRec(nums, amount - nums[idx], idx);
+
+        int case2 = coinRec(nums, amount, idx + 1);
+        this.memo[idx][amount] = case1 + case2;
+
+        return case1 + case2;
+    }
+       
+    public int change(int amount, int[] coins) {
+        this.memo = new int[coins.length][amount+1];
+        for(int i = 0; i < coins.length; i++){
+            for(int j = 0; j <= amount; j++){
+                memo[i][j] = -1;
+            }
+        }
+        int result = coinRec(coins, amount, 0);
+        return result;
+    }
+}
+
+    
