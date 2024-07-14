@@ -1,0 +1,111 @@
+#Problem 1
+
+Exponential 
+
+def minCost(costs, N):
+    if costs == None or len(costs) == 0:
+        return -1
+    red = recurse(costs, 0, 0, 0)
+    green = recurse(costs, 0, 1, 0)
+    blue = recurse(costs, 0, 2, 0)
+    
+    print(min(blue , min(red,green)))
+    return min(blue , min(red,green))
+
+def recurse(costs, row, color, price):
+    #base case 
+    if row == len(costs):
+        return price
+    
+    #logic
+    if color == 0:
+        # print(min(recurse(costs, row + 1, 1, price + costs[row][0]), recurse(costs, row + 1, 2,
+        # costs[row][0])))
+        return min(recurse(costs, row + 1, 1, price + costs[row][0]), recurse(costs, row + 1, 2,
+        costs[row][0] + price))
+    elif color == 1:
+        # print(min(recurse(costs, row + 1, 0, price + costs[row][1]), recurse(costs, row + 1, 2,
+        # costs[row][1])))
+        return min(recurse(costs, row + 1, 0, price + costs[row][1]), recurse(costs, row + 1, 2,
+        costs[row][1] + price))
+    else:
+        # print(min(recurse(costs, row + 1, 0, price + costs[row][2]), recurse(costs, row + 1, 1,
+        # costs[row][2])))
+        return min(recurse(costs, row + 1, 0, price + costs[row][2]), recurse(costs, row + 1, 1,
+        costs[row][2] + price))
+
+DP
+
+def minCost(costs, N):
+    if costs == None or len(costs) == 0:
+        return -1
+    n = len(costs) 
+    red = costs[n-1][0]
+    green = costs[n-1][1]
+    blue = costs[n-1][2]
+    
+    for i in range(n - 2, -1, -1):
+        tempR = red
+        red = costs[i][0] + (min(green, blue))
+        tempG = green
+        green = costs[i][1] + (min(tempR, blue))
+        tempB = blue
+        blue = costs[i][2] + (min(tempR, tempG))
+    
+    print(min(red,green,blue))
+    return min(red,green,blue)
+
+#Problem 2
+
+Exponential
+
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        if coins == None or len(coins) == 0:
+            return -1
+        
+        return self.recurse(coins, 0, amount)
+
+    
+    def recurse(self, coins: List[int], index: int, amount: int) -> int:
+
+        #base case
+        if index == len(coins) or amount < 0:
+            return 0
+        if amount == 0:
+            return 1
+
+
+        #logic 
+        #don't choose case (0)
+
+        case1 = self.recurse(coins, index + 1, amount)
+
+        #choose case (1)
+
+        case2 = self.recurse(coins, index, amount - coins[index])
+
+        return case1 + case2
+
+
+
+DP
+
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        if coins == None or len(coins) == 0:
+            return -1
+        n = len(coins)
+        dp = [[0] * (amount + 1)] * (n + 1)
+
+        for i in range(1, n + 1):
+            dp[i][0] = 1
+
+        for i in range(1, n + 1):
+            for j in range(amount + 1):
+                if j < coins[i - 1]:
+                    dp[i][j] = dp[i-1][j]
+                else:
+                    dp[i][j] = dp[i-1][j] + dp[i][j - coins[i-1]]
+        
+        return dp[n][amount]
