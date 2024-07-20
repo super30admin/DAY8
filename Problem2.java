@@ -20,10 +20,11 @@
 
 
 //Improved with Dynamic Programming
-
+//time = O(n*m), n is amount and m is number of coins
+//Space = O(n)
 class Solution {
-    public int change(int amount, int[] coins) {                          //time = O(amount*n)
-        int[] dp = new int[amount+1];                                     //Space = O(amount)
+    public int change(int amount, int[] coins) {                          
+        int[] dp = new int[amount+1];                                     
         dp[0] = 1;
         for (int coin : coins) {
             for (int i = coin; i <= amount; i++) {
