@@ -1,0 +1,29 @@
+//Time: O(n) n are no o houses
+//Space:  O(1) since using same costs array
+//Executed:  yes
+
+class Solution {
+    public int minCost(int[][] costs) {
+        if(costs == null  || costs.length==0) return 0;
+        for(int i=1;i<costs.length;i++)
+        {
+            for(int j=0;j<3;j++)
+            {
+                if(j==0)
+                costs[i][j]=costs[i][j]+Math.min(costs[i-1][j+1],costs[i-1][j+2]);
+                else if(j==1)
+                costs[i][j]=costs[i][j]+Math.min(costs[i-1][j-1],costs[i-1][j+1]);  
+                else
+                costs[i][j]=costs[i][j]+Math.min(costs[i-1][j-2],costs[i-1][j-1]);   
+                    
+            }
+        }
+        int min=Integer.MAX_VALUE;
+        for(int j=0;j<3;j++)
+        {
+            if(min>costs[costs.length-1][j])
+                min=costs[costs.length-1][j];
+        }
+        return min;
+    }
+}
