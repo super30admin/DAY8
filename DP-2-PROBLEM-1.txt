@@ -1,0 +1,21 @@
+#Problem1
+#Time Complexity : o(3*N), in general o(M*N) for M colors
+#Space Complexity : o(1)
+
+class Solution {
+    public int minCost(int[][] cost)
+    {
+        if(cost==null||cost.length==0) return 0;
+        int row=cost.length;
+        for(int i=1;i<row;i++){
+            cost[i][0]= cost[i][0]+Integer.min(cost[i-1][1],cost[i-1][2]);
+            cost[i][1]= cost[i][1]+Integer.min(cost[i-1][0],cost[i-1][2]);
+            cost[i][2]= cost[i][2]+Integer.min(cost[i-1][0],cost[i-1][1]);
+        }
+        
+        return Integer.min(cost[row-1][0],Integer.min(cost[row-1][1],cost[row-1][2]));
+        
+        
+        
+    }
+}
