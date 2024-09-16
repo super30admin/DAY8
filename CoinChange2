@@ -1,0 +1,68 @@
+/*
+Recursive Approach
+// Time Complexity : 2^n
+// Space Complexity : O(m+n)
+// Did this code successfully run on Leetcode :Yes
+// Your code here along with comments explaining your approach
+1. At every iteration , we have 2 options, either to choose a coin or dont choose a coin. 
+2. so we choose all the paths considering whether to choose a coin or dont choose a coin at each level. and calculate all the paths which gives amount equal to given amount. 
+*/
+// class Solution {
+//     public int change(int amount, int[] coins) {
+//         if(coins == null || coins.length ==0)
+//             return 0;
+//         return changeUtil(coins, amount, 0);
+//     }
+//     private int changeUtil(int[] coins, int amount, int index){
+//         //base case
+//         if(amount ==0)
+//             return 1;
+//         if(index>= coins.length || amount<0)
+//             return 0;
+//         //choose the coin
+//         int case1= changeUtil(coins, amount-coins[index], index);
+//         //dont choose a coin
+//         int case2= changeUtil(coins, amount, index+1);
+//         return case1+case2;
+//     }
+// }
+
+
+/*
+Dynamic programming 
+// Time Complexity : O(m*n)
+// Space Complexity : O(m*n)
+// Did this code successfully run on Leetcode :Yes
+// Your code here along with comments explaining your approach
+
+overlapping subproblems in above methond can be solved using dp.
+we would be using previously calculated data for the current calculation. 
+*/
+class Solution {
+    public int change(int amount, int[] coins) {
+        if(coins == null)
+            return 0;
+        
+        //2d array as 2 things are changing always. amount and coin
+        int[][]dp = new int[coins.length+1][amount+1];
+        
+        
+        //1st column 0 as we cant make amount 0 with any coin so number of ways 0
+        for(int i=0; i< dp.length; i++)
+            dp[i][0] =1;
+        
+        for(int i=1; i< dp.length; i++){
+            for(int j=1; j< dp[0].length; j++){
+                //amount is less than cur coin then just take prev row value.
+                if(j< coins[i-1])
+                    dp[i][j] =  dp[i-1][j];
+                else{
+                    //if we are taking this 5 to make amount 7 then we would add 1 to number of ways we can make 7-5 that is 2.
+                    dp[i][j]= dp[i][j-coins[i-1]]+dp[i-1][j];
+                }
+             }
+        }
+        return dp[dp.length-1][dp[0].length-1];
+    }
+}
+
