@@ -1,0 +1,18 @@
+Time complexity: O(nm) where n is the denominations available and m is the amount.
+Space complexity: O(nm) where n is the denominations available and m is the amount.
+D id this code submitted successfully on leetcode: Yes
+
+class Solution {
+    public int change(int amount, int[] coins) {
+        int[][] dp = new int[coins.length+1][amount+1];
+        dp[0][0] = 1;
+        
+        for (int i = 1; i <= coins.length; i++) {
+            dp[i][0] = 1;
+            for (int j = 1; j <= amount; j++) {
+                dp[i][j] = dp[i-1][j] + (j >= coins[i-1] ? dp[i][j-coins[i-1]] : 0);
+            }
+        }
+        return dp[coins.length][amount];
+    }
+}
