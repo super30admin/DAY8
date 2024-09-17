@@ -1,0 +1,25 @@
+"""
+Time complexity: O(m*n) where m is amount and N is the no of elements 
+Space complexity: O(m) where m is amount and N is the no of elements 
+Executed in leetcode: Yes
+Commments: We create a dp matrix with size equal to amount+1, with the first row values defaulting to 1. 
+Thereafter, we create two for loops to iteratively update the variable with the updated amount by adding the difference between the 
+updated amount and coin denomination. Finally, we return the last value as the result.
+"""
+
+
+class Solution(object):
+    def change(self, amount, coins):
+        """
+        :type amount: int
+        :type coins: List[int]
+        :rtype: int
+        """
+
+
+        dp = [0]*(amount+1)
+        dp[0] = 1
+        for coin in coins:
+            for updated_amount in range(coin, amount+1):
+                dp[updated_amount] += dp[updated_amount-coin]
+        return dp[-1]
