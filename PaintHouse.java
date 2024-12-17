@@ -1,6 +1,6 @@
 /*
     Leetcode problem : 
-    T.C: O(n * m) :: S.C: O(n * m)
+    T.C: O(n) :: S.C: O(n) - No. of colors are 3: R,G,B
 
     Solved using dp approach: Calculate the min from bottom-up
     add the min of the two adjacent house to the second last row
