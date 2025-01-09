@@ -1,0 +1,8 @@
+Time Complexity : O(n)
+Space Complexity : O(n)
+Did this code successfully run on Leetcode : Yes
+Any problem you faced while coding this : No
+
+
+Your code here along with comments explaining your approach in three sentences only
+I created a dp table such that dp[i][j] = max(for all k such that k!=j dp[i+1][k])+arr[i][k]

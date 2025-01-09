@@ -1,0 +1,8 @@
+Time Complexity : O(n)
+Space Complexity : O(n)
+Did this code successfully run on Leetcode : Yes
+Any problem you faced while coding this : No
+
+
+Your code here along with comments explaining your approach in three sentences only
+I wrote a dp function such that dp[amount][ind] = dp[amount][ind+1]+dp[amount-denom[i]][ind]
