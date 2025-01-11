@@ -38,16 +38,16 @@ public class LC256 {
         int min = Integer.MAX_VALUE;
         for (int x = 0; x < 3; x++) {
             if (x != prev) {
-                dp[i][x] = min = Math.min(min, costs[i][x] + minCost(costs, i + 1, n, x, dp));
+                min = Math.min(min, costs[i][x] + minCost(costs, i + 1, n, x, dp));
             }
         }
-        return min;
+        return dp[i][prev] = min;
     }
-    // private static void printArray(int dp[][]){
-    //     for(int x[]:dp){
-    //         System.out.println(Arrays.toString(x));
-    //     }
-    // }
+    private static void printArray(int dp[][]){
+        for(int x[]:dp){
+            System.out.println(Arrays.toString(x));
+        }
+    }
     public static void main(String[] args) {
         int costs[][] = { { 17, 2, 17 }, { 16, 16, 5 }, { 14, 3, 19 } };
         int n = costs.length;
@@ -59,7 +59,7 @@ public class LC256 {
                 Arrays.fill(x, -1);
             }
             int ans = minCost(costs, 0, n, 3, dp);
-            // printArray(dp);
+            printArray(dp);
             System.out.println("Minimum cost to paint all houses: " + ans);
         }
     }
