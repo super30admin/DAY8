@@ -60,3 +60,28 @@ class solution{
         return Math.Min(costs[0][0],Math.min(costs[0][1],costs[0][2]));
     }
 }
+//The above approach mutates the original given array
+
+//The below approach will not mutate the original array and still will have constant space
+class solution{
+    public int minCost(int[][] costs){
+        //Base Condition check
+        if(costs==null || costs.length==0){
+            return 0;
+        }
+        //Length of an costs array
+        int n=costs.length;
+        int red=costs[n-1][0];
+        int blue=costs[n-1][1];
+        int green=costs[n-1][2];
+        for(int i=n-2;i>=0;i--){
+            int tempRed=red;
+            int tempBlue=blue;
+            red=red+Math.Min(blue,green);
+            blue=blue+Math.Min(tempRed,green);
+            green=green+Math.Min(tempRed,tempBlue);
+        }
+        //We will be returning the minimum of costs[0][0],costs[0][1],costs[0][2]
+        return Math.Min(red,Math.min(blue,green));
+    }
+}
