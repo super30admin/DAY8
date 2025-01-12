@@ -1,3 +1,9 @@
+# Time complexity - O(m)
+# Space complexity - O(m * n)
+
+# Approach - values of DP table are filled with the (cost[R] + min(cost[i-1][G], cost[i-1][B]))
+# The min val of the final row is returned 
+
 from typing import List
 class Solution:
     def minCost(self, costs: List[List[int]]) -> int:
