@@ -1,0 +1,17 @@
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        dp = [0] * (amount+1)
+        dp[0] = 1 # ways to make 0 from 0
+
+        for i in range(1, len(coins)+1):
+            coin = coins[i-1]
+            for j in range(amount+1):
+                if j < coin:
+                    dp[j] = dp[j]
+                else:
+                    dp[j] = dp[j]+dp[j-coin]
+                
+        return dp[-1]
+
+# TC: O(amount * len(coins))
+# SC : O(amount)
