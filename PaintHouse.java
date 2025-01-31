@@ -1,7 +1,8 @@
+// Can also be found here: 
+// https://www.naukri.com/code360/problems/paint-house_1460385?leftPanelTabValue=PROBLEM&isSignup=true&regSuccess=true
 class Solution2{
     public int minCost(int[][] costs){
         int n = costs.length;
-        int dp[][] = new int[n][3];
         int varR = costs[n-1][0];
         int varB = costs[n-1][1];
         int varG = costs[n-1][2];
