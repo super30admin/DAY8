@@ -7,7 +7,7 @@ class Solution2{
         int varG = costs[n-1][2];
         for(int i = n - 2; i >= 0; i--){
             int tempR = varR;
-            varR = costs[1][0] + Math.min(varB, varG);
+            varR = costs[i][0] + Math.min(varB, varG);
             int tempB = varB;
             varB = costs[i][1] + Math.min(tempR, varG);
             varG = costs[i][2] + Math.min(tempR, tempB);
